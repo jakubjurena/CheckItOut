@@ -1,0 +1,36 @@
+{
+  "name": "checkitout-server",
+  "version": "1.0.0",
+  "description": "serverside of webapp for movie fans",
+  "main": "index.js",
+  "engines": {
+    "node": "8.1.1",
+    "npm": "5.6.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakubjurena/CheckItOut.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose",
+    "react"
+  ],
+  "author": "Jakub Jurena",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakubjurena/CheckItOut/issues"
+  },
+  "homepage": "https://github.com/jakubjurena/CheckItOut#readme",
+  "dependencies": {
+    "concurrently": "^3.5.1",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.1"
+    }
+}

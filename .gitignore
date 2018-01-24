@@ -1,0 +1,11 @@
+#IDE idea
+.idea
+
+#server modules
+node_modules
+
+#client modules
+client/node_modules
+
+#keys secrets
+config/dev.js

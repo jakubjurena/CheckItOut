@@ -7,9 +7,27 @@ Create web application allowing users to register and maintain they have already
 * It must allow users to register via social networks and plain username password
 * Users can add in-app friends
 * If user is connected to any social network, app will offer them their friends from this network, who are also using this app
-* Users can manage their movie lists (add/remove movies from list and manage visibility – private, friends, public)
+* Users can manage their movie lists (add/remove movies from list and manage visibility â€“ private, friends, public)
 * Users can browse through their own movie lists, their friends list and also public lists
 * Users can rate films, that they have already seen
-* Application will contain smart search, that will search in friends list first and then it will use some public api (e.g [„the movie db“](https://www.themoviedb.org/documentation/api)) for searching new films that friends don’t know
+* Application will contain smart search, that will search in friends list first and then it will use some public api (e.g [â€žthe movie dbâ€œ](https://www.themoviedb.org/documentation/api)) for searching new films that friends donâ€™t know
 * Search tab results will be similar to spotify (best results, movies, friends lists, public lists and maybe serials)
-* Search bar results will be segmented – best results, movies, lists, …  (e.g using [Autosuggest component](http://react-autosuggest.js.org/))
+* Search bar results will be segmented â€“ best results, movies, lists, â€¦  (e.g using [Autosuggest component](http://react-autosuggest.js.org/))
+
+## Developer info
+
+### Run server
+`cd CheckItOut`
+<br/>
+`npm run <<action>>`
+
+**\<\<actions\>\>**
+* **server** - run only server api
+* **client** - run only react client
+* **dev** - run both concurrently
+
+***
+
+### API Credentials
+
+You have to save your api credentials in `CheckItOut/config/dev.js`

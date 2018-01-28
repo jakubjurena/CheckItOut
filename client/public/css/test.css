@@ -114,14 +114,37 @@
   }
 
   .title {
-    font-size: 125%;
-    font-weight: 125%;
+    font-size: 1em;
     margin-bottom: 10px;
+  }
+
+  .title a {
+    display: inline-block;
+    transition: 0.8s
+  }
+
+  .title a:hover {
+    color:  #e040fb;
+    transform: translate(10px) scale(1.2);
+  }
+
+  .title .fa:hover {
+    color:  #e040fb;
+    transform: scale(1.5);
   }
 
   .friend {
     cursor: pointer;
-    position: relative;
+  }
+
+  .friend a{
+    display: inline-block;
+    transition: 0.8s;
+  }
+
+  .friend:hover a{
+    color:  #e040fb;
+    transform: translate(20px);
   }
 
   .more {

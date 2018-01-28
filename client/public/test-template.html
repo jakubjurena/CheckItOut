@@ -111,7 +111,7 @@
           MY LISTS
         -->
         <div class="nav-item my-lists">
-          <div class=title>
+          <div class="title">
             <a href="#">My movie lists</a>
           </div>
           <div class="item">
@@ -148,7 +148,7 @@
         <!--
           PROFILE
         -->
-        <div class="nav-item profile">
+        <div class="nav-item nav-profile">
           <div class="item">
             <a href="#">
               John Doe
@@ -162,33 +162,223 @@
     <div id="content">
       <div class="content-overlay"></div>
       <div class="content-modal">I'm the modal window!</div>
-      <div class="card one">
-        Profile
+      <div class="card profile">
+        <div class="row">
+          <img src="./assets/avatars/man_1.png" alt="profile photo" class="avatar"/>
+          <div class="info">
+            <div class="name">John Doe</div>
+            <div class="activity">Last activiti xx hours ago</div>
+            <div class="buttons">
+                <button class="google-btn"><span class="fa fa-google-plus"></span> Connect to Google</button>
+                <button href="#" class="facebook-btn"><span class="fa fa-facebook"></span> Connect to Facebook</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card two">
-        <p>My lists</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
-        <p>Lorem Ipsum</p>
+      <div class="card my-lists-view">
+        <div class="title">
+          My lists
+        </div>
+        <div class="div-table">
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Seen
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-users"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Want to see
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-user"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Recomending
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Private
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-user"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Public
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-film"></a>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-globe"></a>
+            </div>
+          </div>
+        </div>
+        <div class="more">
+          <a href="#">more lists</a>
+        </div>
       </div>
-      <div class="card three">
-        Recently rated
+      <div class="card my-ratings">
+        <div class="title">
+          My lists
+        </div>
+        <div class="div-table">
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Champion
+            </div>
+            <div class="div-table-col">
+              <span class="small">(<a href="#">Public</a>)</span>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Movie 1
+            </div>
+            <div class="div-table-col">
+              <span class="small">(<a href="#">Recomending</a>)</span>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star-o"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Ghost
+            </div>
+            <div class="div-table-col">
+              <span class="small">(<a href="#">Public</a>)</span>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star-o"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              Solider
+            </div>
+            <div class="div-table-col">
+              <span class="small">(<a href="#">Seen</a>, <a href="#">Private</a>)</span>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star-o"></a>
+              <a href="#" class="fa fa-star-o"></a>
+            </div>
+          </div>
+          <div class="div-table-row">
+            <div class="div-table-col">
+              It
+            </div>
+            <div class="div-table-col">
+              <span class="small">(<a href="#">Seen</a>)</span>
+            </div>
+            <div class="div-table-col">
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star"></a>
+              <a href="#" class="fa fa-star-o"></a>
+              <a href="#" class="fa fa-star-o"></a>
+              <a href="#" class="fa fa-star-o"></a>
+            </div>
+          </div>
+        </div>
+        <div class="more">
+          <a href="#">all ratings</a>
+        </div>
       </div>
       <div class="card four">
         My most famost lists

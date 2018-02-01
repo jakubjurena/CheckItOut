@@ -6,6 +6,8 @@ const keys = require("../config/keys");
 
 const User = mongoose.model("users");
 
+const FB = require("./Facebook");
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -27,14 +29,13 @@ passport.use(
       const existingUser = await User.findOne({
         "googleAccount.id": profile.id
       });
-      console.log(profile);
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
           registrationDate: Date.now(),
           name: profile.displayName,
-          googleAccount: {
+          google: {
             id: profile.id,
             accessToken: accessToken,
             refreshToken: refreshToken
@@ -57,19 +58,22 @@ passport.use(
       const existingUser = await User.findOne({
         "facebookAccount.id": profile.id
       });
-      console.log(profile);
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
           registrationDate: Date.now(),
           name: profile.displayName,
-          facebookAccount: {
+          facebook: {
             id: profile.id,
             accessToken: accessToken,
             refreshToken: refreshToken
           }
         }).save();
+
+        //I don't have to wait to result -> without await
+        FB.refreshFriends(user);
+
         done(null, user);
       }
     }

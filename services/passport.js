@@ -27,11 +27,13 @@ passport.use(
       const existingUser = await User.findOne({
         "googleAccount.id": profile.id
       });
+      console.log(profile);
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
           registrationDate: Date.now(),
+          name: profile.displayName,
           googleAccount: {
             id: profile.id,
             accessToken: accessToken,
@@ -55,11 +57,13 @@ passport.use(
       const existingUser = await User.findOne({
         "facebookAccount.id": profile.id
       });
+      console.log(profile);
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
           registrationDate: Date.now(),
+          name: profile.displayName,
           facebookAccount: {
             id: profile.id,
             accessToken: accessToken,

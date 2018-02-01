@@ -27,13 +27,12 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({
-        "googleAccount.id": profile.id
+        "google.id": profile.id
       });
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
-          registrationDate: Date.now(),
           name: profile.displayName,
           google: {
             id: profile.id,
@@ -56,13 +55,12 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({
-        "facebookAccount.id": profile.id
+        "facebook.id": profile.id
       });
       if (existingUser) {
         done(null, existingUser);
       } else {
         const user = await new User({
-          registrationDate: Date.now(),
           name: profile.displayName,
           facebook: {
             id: profile.id,

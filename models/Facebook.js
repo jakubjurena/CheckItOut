@@ -6,7 +6,7 @@ const facebookSchema = new Schema({
   id: String,
   accessToken: String,
   refreshToken: String,
-  friendsRefreshDate: Date,
+  friendsRefreshDate: { type: Date, default: Date.now()},
   friends: [ {
     id: String,
     name: String

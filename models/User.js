@@ -8,7 +8,8 @@ const facebookSchema = require("./Facebook");
 const userSchema = new Schema({
   name: String,
   facebook: facebookSchema,
-  google: googleSchema
+  google: googleSchema,
+  registrationDate: { type: Date, default: Date.now()}
 });
 
 mongoose.model("users", userSchema);

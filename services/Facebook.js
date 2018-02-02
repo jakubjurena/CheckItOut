@@ -47,6 +47,7 @@ module.exports = {
     //console.log("RESPONSE BODY: ", res.data);
 
     user.facebook.friends = res.data.data;
+    user.facebook.friendsRefreshDate = Date.now();
 
     const updatedUser = await user.save();
 

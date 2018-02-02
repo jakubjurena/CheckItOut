@@ -8,6 +8,7 @@ const facebookSchema = new Schema({
   refreshToken: String,
   friendsRefreshDate: { type: Date, default: Date.now()},
   friends: [ {
+    _id: false,
     id: String,
     name: String
   }]

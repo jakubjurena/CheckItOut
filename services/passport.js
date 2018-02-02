@@ -70,7 +70,7 @@ passport.use(
         }).save();
 
         //I don't have to wait to result -> without await
-        FB.refreshFriends(user);
+        FB.refreshFriends(user.id);
 
         done(null, user);
       }

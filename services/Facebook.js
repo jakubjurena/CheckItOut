@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-const http = require("http");
+const axios = require("axios");
+
+
+const Users = mongoose.model("users");
+const {facebookApiURL, facebookMyFriendsPath} = require("../config/constants");
 
 module.exports = {
 
@@ -23,9 +27,27 @@ module.exports = {
   /**
    * this function refresh fb friends of current user
    *
-   * @param user user who want to refresh fb friends
+   * @param userId id of user who want to refresh fb friends
    */
-  refreshFriends: (user) => {
+  refreshFriends: async (userId) => {
     //TODO fetch friends from fb api and save them to the database
+    console.log("USER ID: ", userId);
+    if (userId === null) {
+      return;
+    }
+    const user = await Users.findById({_id: userId});
+    console.log("USER: ", user);
+    if (user === null) {
+      return;
+    }
+
+    const path = facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
+    console.log("PATH: ", path);
+    const res = await axios.get(path);
+    console.log("RESRPONSE BODY: ", res.data);
+
+    user.facebook.friends = res.data.data;
+
+    await user.save();
   }
 };

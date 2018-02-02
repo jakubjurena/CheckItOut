@@ -28,26 +28,28 @@ module.exports = {
    * this function refresh fb friends of current user
    *
    * @param userId id of user who want to refresh fb friends
+   * @return updatedUser when success, null otherwise
    */
-  refreshFriends: async (userId) => {
-    //TODO fetch friends from fb api and save them to the database
-    console.log("USER ID: ", userId);
+  updateFriends: async (userId) => {
+    //console.log("USER ID: ", userId);
     if (userId === null) {
-      return;
+      return null;
     }
     const user = await Users.findById({_id: userId});
-    console.log("USER: ", user);
+    //console.log("USER: ", user);
     if (user === null) {
-      return;
+      return null;
     }
 
     const path = facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
-    console.log("PATH: ", path);
+    //console.log("PATH: ", path);
     const res = await axios.get(path);
-    console.log("RESRPONSE BODY: ", res.data);
+    //console.log("RESPONSE BODY: ", res.data);
 
     user.facebook.friends = res.data.data;
 
-    await user.save();
+    const updatedUser = await user.save();
+
+    return updatedUser;
   }
 };

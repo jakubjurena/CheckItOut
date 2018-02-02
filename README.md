@@ -30,4 +30,4 @@ Create web application allowing users to register and maintain they have already
 
 ### API Credentials
 
-You have to save your api credentials in `CheckItOut/config/dev.js`
+You have to save your api credentials in `CheckItOut/config/dev.js` or create enviroment variables in production.

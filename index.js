@@ -22,6 +22,10 @@ const app = express();
  *  MONGOOSE
  */
 require("./models/User");
+require("./models/Friendship");
+require("./models/Movie");
+require("./models/MovieList");
+require("./models/Rating");
 mongoose.connect(keys.mongoURI);
 
 /**

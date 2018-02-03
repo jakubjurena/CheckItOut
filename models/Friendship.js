@@ -21,4 +21,4 @@ const friendshipSchema = new Schema( {
   friendsFrom: Date
 });
 
-mongoose.model("FriendRequest", friendshipSchema);
+mongoose.model("Friendship", friendshipSchema);

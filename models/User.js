@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const oauthAccountSchema = require("./OAuthAccount");
+
+// subdocuments import
+const googleSchema = require("./Google");
+const facebookSchema = require("./Facebook");
 
 const userSchema = new Schema({
   name: String,
-  facebookAccount: oauthAccountSchema,
-  googleAccount: oauthAccountSchema
+  facebook: facebookSchema,
+  google: googleSchema,
+  registrationDate: { type: Date, default: Date.now()}
 });
 
 mongoose.model("users", userSchema);

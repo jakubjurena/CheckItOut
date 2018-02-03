@@ -18,6 +18,9 @@ passport.deserializeUser((id, done) => {
   });
 });
 
+/**
+ *  GOOGLE STRATEGY
+ */
 passport.use(
   new googleStrategy(
     {
@@ -46,6 +49,9 @@ passport.use(
   )
 );
 
+/**
+ *  FACEBOOK STRATEGY
+ */
 passport.use(
   new facebookStrategy(
     {
@@ -58,9 +64,11 @@ passport.use(
         "facebook.id": profile.id
       });
       if (existingUser) {
+        // is already registered
         done(null, existingUser);
       } else {
-        const user = await new User({
+        // create user and save it to db
+        let user = await new User({
           name: profile.displayName,
           facebook: {
             id: profile.id,
@@ -69,8 +77,7 @@ passport.use(
           }
         }).save();
 
-        //I don't have to wait to result -> without await
-        FB.updateFriends(user.id);
+        user = await FB.updateFriends(user.id);
 
         done(null, user);
       }

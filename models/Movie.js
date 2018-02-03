@@ -1,28 +1,26 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const filmSchema = new Schema({
+const movieSchema = new Schema({
   tmdbId: String,
   imbdId: String,
   title: String,
   overview: String,
-  grendes: [
+  genres: [
     {
       id: String,
       name: String
     }
   ],
-  popularity: Number,
-  posterPath: String,
+  mainPosterPath: String,
   releaseDate: String,
-  runtime: Number,
-  video: Boolean
+  runtime: Number
 });
 
-/**
- *  For more details request TMDB api
+/*
+ *  For more details see TMDB api docs
  * 
  *  docs: developers.themoviedb.org/3
  */
 
-mongoose.model("films", filmSchema);
+mongoose.model("Movie", movieSchema);

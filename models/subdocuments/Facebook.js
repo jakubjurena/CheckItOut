@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
 const facebookSchema = new Schema({
-  _id: false,
   id: String,
   accessToken: String,
   refreshToken: String,
@@ -12,6 +11,8 @@ const facebookSchema = new Schema({
     id: String,
     name: String
   }]
+},{
+  _id: false
 });
 
 module.exports = facebookSchema;

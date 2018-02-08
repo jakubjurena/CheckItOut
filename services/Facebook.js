@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 
 
-const Users = mongoose.model("users");
+const Users = mongoose.model("User");
 const {facebookApiURL, facebookMyFriendsPath} = require("../config/constants");
 
 module.exports = {

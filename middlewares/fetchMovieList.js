@@ -12,24 +12,25 @@ const MovieList = mongoose.model("MovieList");
  * @param next function link to next operations
  * @return set movie list in HTTP request if authentication is ok, HTTP response with error code otherwise
  */
-module.exports = async (req, res, next) => {
-  const movieList = await MovieList.find({_id: req.params.id});
+module.exports = (req, res, next) => {
+  MovieList.find({_id: req.params.movieListId}, (err, movieList) => {
+    if (err) return res.status(404).send("Movie list not found (check your movie list id)");
 
-  if (movieList === null ) {
-    return res.status(404).send("Movie list not found (check your movie list id)");
-  }
+    switch (movieList.visibility) {
+      case visibility.PRIVATE:
+        if ( movieList.owner !== req.user.id) {
+          return res.status(401).send("You do not have permissions to display this Movie list");
+        }
+        break;
+      case visibility.FRIENDS:
+        //TODO implement method isFriend, then similar if to PRIVATE movie list
+        //meanwhile it behaves like PUBLIC
+    }
 
-  switch (movieList.visibility) {
-    case visibility.PRIVATE:
-      if ( movieList.owner !== req.user.id) {
-        return res.status(401).send("You do not have permissions to display this Movie list");
-      }
-      break;
-    case visibility.FRIENDS:
-      //TODO implement method isFriend, then similar if to PRIVATE movie list
-      //meanwhile it behaves like PUBLIC
-  }
+    req.movieList = movieList;
+    next();
+  });
 
-  req.movieList = movieList;
-  next();
+
 };
+

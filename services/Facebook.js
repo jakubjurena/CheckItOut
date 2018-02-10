@@ -68,21 +68,27 @@ module.exports = {
     Users.findById(userId).then(user => {
       //console.log("USER: ", user);
       if (user === null) {
-        callback("User not found", null)
+        callback({ message: "User not found"}, null)
       }
 
       const path = facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
       //console.log("PATH: ", path);
       axios.get(path).then(res => {
-        //console.log("RESPONSE BODY: ", res.data);
+          //console.log("RESPONSE BODY: ", res.data);
 
-        user.facebook.friends = res.data.data;
-        user.facebook.friendsRefreshDate = Date.now();
+          user.facebook.friends = res.data.data;
+          user.facebook.friendsRefreshDate = Date.now();
 
-        user.save().then(updatedUser => {
-          callback(null, updatedUser);
-        });
+          user.save( (err, updatedUser) => {
+            if (err) {
+              callback({message: "Error while updating in DB"}, null);
+            }
+            callback(null, updatedUser);
+          })
+        }).catch( (err) => {
+        callback({message: "Axios error (on GET " + path + ")" }, null);
       });
-    });
-  }
+      })
+    }
+
 };

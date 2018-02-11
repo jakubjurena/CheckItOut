@@ -22,6 +22,10 @@ const app = express();
  *  MONGOOSE
  */
 require("./models/User");
+require("./models/Friendship");
+require("./models/Movie");
+require("./models/MovieList");
+require("./models/Rating");
 mongoose.connect(keys.mongoURI);
 
 /**
@@ -46,6 +50,7 @@ app.use(passport.session());
  *  ROUTES
  */
 require("./routes/apiRoutes")(app);
+require("./routes/movieListRoutes")(app);
 require("./routes/authRoutes")(app);
 
 const PORT = process.env.PORT || 5000;

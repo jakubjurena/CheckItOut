@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
 const { Schema } = mongoose;
 
 // subdocuments import
-const googleSchema = require("./Google");
-const facebookSchema = require("./Facebook");
+const googleSchema = require("./subdocuments/Google");
+const facebookSchema = require("./subdocuments/Facebook");
 
 const userSchema = new Schema({
   name: String,
@@ -12,4 +13,4 @@ const userSchema = new Schema({
   registrationDate: { type: Date, default: Date.now()}
 });
 
-mongoose.model("users", userSchema);
+mongoose.model("User", userSchema);

@@ -1,4 +1,4 @@
-const visibility = require("../../config/visibility");
+const visibility = require("../../enums/visibility");
 const _ = require("lodash");
 
 module.exports = (req, res, next) => {
@@ -12,8 +12,8 @@ module.exports = (req, res, next) => {
 
   // if visibility attribute is in request validate ENUM
   if (req.body.visibility) {
-    for(let key in visibility) {
-      if (visibility[key] === req.body.visibility) {
+    for(let value in visibility.LIST) {
+      if (value === req.body.visibility) {
         next();
         return;
       }

@@ -4,7 +4,7 @@ const facebookStrategy = require("passport-facebook").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 
-const User = mongoose.model("users");
+const User = mongoose.model("User");
 
 const FB = require("./Facebook");
 
@@ -28,23 +28,26 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback"
     },
-    async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await User.findOne({
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({
         "google.id": profile.id
+      }, (err, existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          new User({
+            name: profile.displayName,
+            google: {
+              id: profile.id,
+              accessToken: accessToken,
+              refreshToken: refreshToken
+            }
+          }).save( (err, user) => {
+            if (err) return done({message: "Error while saving user"}, null);
+            done(null, user);
+          });
+        }
       });
-      if (existingUser) {
-        done(null, existingUser);
-      } else {
-        const user = await new User({
-          name: profile.displayName,
-          google: {
-            id: profile.id,
-            accessToken: accessToken,
-            refreshToken: refreshToken
-          }
-        }).save();
-        done(null, user);
-      }
     }
   )
 );
@@ -59,28 +62,31 @@ passport.use(
       clientSecret: keys.facebookAppSecret,
       callbackURL: "/auth/facebook/callback"
     },
-    async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await User.findOne({
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({
         "facebook.id": profile.id
+      }, (err, existingUser) => {
+        if (existingUser) {
+          // is already registered
+          done(null, existingUser);
+        } else {
+          // create user and save it to db
+          new User({
+            name: profile.displayName,
+            facebook: {
+              id: profile.id,
+              accessToken: accessToken,
+              refreshToken: refreshToken
+            }
+          }).save( (err, newUser) => {
+            if (err) return done({message: "Error while saving user"}, null);
+            FB.updateFriends(newUser.id, (err, user) => {
+              if (err) return done({message: "Error while updating FB friends"}, null);
+              done(null, user);
+            });
+          });
+        }
       });
-      if (existingUser) {
-        // is already registered
-        done(null, existingUser);
-      } else {
-        // create user and save it to db
-        let user = await new User({
-          name: profile.displayName,
-          facebook: {
-            id: profile.id,
-            accessToken: accessToken,
-            refreshToken: refreshToken
-          }
-        }).save();
-
-        user = await FB.updateFriends(user.id);
-
-        done(null, user);
-      }
     }
   )
 );

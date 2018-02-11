@@ -50,6 +50,7 @@ app.use(passport.session());
  *  ROUTES
  */
 require("./routes/apiRoutes")(app);
+require("./routes/movieListRoutes")(app);
 require("./routes/authRoutes")(app);
 
 const PORT = process.env.PORT || 5000;

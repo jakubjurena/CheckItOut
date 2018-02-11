@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const { visibilityEnum } = require("../config/enums");
+const visibility = require("../config/visibility");
 
 const movieListSchema = new Schema ( {
-  _owner: {type: Schema.Types.ObjectId, ref: "User"},
+  _owner: {type: Schema.Types.ObjectId, ref: "User", required: true},
   name: {type: String, required: true},
   overview: String,
-  visibility: { type: String, enum: visibilityEnum, default: "friends"},
+  visibility: { type: String, enum: [visibility.PRIVATE, visibility.FRIENDS, visibility.PUBLIC], default: visibility.FRIENDS},
   likes: [{
     id: {type: Schema.Types.ObjectId, ref: "User"},
     date: Date

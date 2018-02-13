@@ -27,27 +27,27 @@ class NavBar extends Component {
       case null:
       case false:
         return [
-          <li>
+          <li key="10">
             <Link to="/login">Login</Link>
           </li>
         ];
       default:
         return [
-          <li>
+          <li key="1">
             <Link className="btn" onClick={this.onLogoutClick} to="/">
               Logout
             </Link>
           </li>,
-          <li>
+          <li key="2">
             <Link to="/dashboard">Dashboard</Link>
           </li>,
-          <li>
+          <li key="3">
             <Link to="/profile">Profile</Link>
           </li>,
-          <li>
+          <li key="4">
             <Link to="/movie/lists">Movie lists</Link>
           </li>,
-          <li>
+          <li key="5">
             <Link to="/friends">Friends</Link>
           </li>
         ];

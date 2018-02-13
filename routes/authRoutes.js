@@ -42,6 +42,31 @@ module.exports = app => {
   );
 
   /**
+   *  LOCAL AUTH
+   */
+
+  app.post("/auth/local/login", passport.authenticate("local-login", {
+    failureRedirect: "/auth/local/flash",
+    failureFlash : true
+  }), (req, res) => {
+    res.send(req.user);
+  });
+
+  app.post("/auth/local/signup", passport.authenticate("local-signup", {
+    failureRedirect: "/auth/local/flash",
+    failureFlash : true
+  }), (req, res) => {
+    res.send(req.user);
+  });
+
+  app.get("/auth/local/flash", (req, res) => {
+    res.send({
+      signupError: req.flash("signupMessage"),
+      loginError: req.flash("loginMessage"),
+    });
+  });
+
+  /**
    *  COMMON METHODS
    */
   app.get("/auth/logout", (req, res) => {

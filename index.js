@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const flash = require("connect-flash");
 
 /**
  *  CONSTANTS AND KEYS
@@ -45,6 +46,7 @@ app.use(
 require("./services/passport");
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 /**
  *  ROUTES

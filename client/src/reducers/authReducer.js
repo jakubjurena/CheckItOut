@@ -6,7 +6,7 @@ export default (state = null, action) => {
       return action.payload || false;
     case SIGNUP_USER:
     case LOGIN_USER:
-      if (!action.payload.signupError && !action.payload.loginError) {
+      if (!action.payload.errorMessage) {
         return action.payload;
       }
       return state;

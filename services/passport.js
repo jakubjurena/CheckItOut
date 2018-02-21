@@ -31,25 +31,29 @@ passport.use(
       callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({
-        "google.id": profile.id
-      }, (err, existingUser) => {
-        if (existingUser) {
-          done(null, existingUser);
-        } else {
-          new User({
-            name: profile.displayName,
-            google: {
-              id: profile.id,
-              accessToken: accessToken,
-              refreshToken: refreshToken
-            }
-          }).save( (err, user) => {
-            if (err) return done({message: "Error while saving user"}, null);
-            done(null, user);
-          });
+      User.findOne(
+        {
+          "google.id": profile.id
+        },
+        (err, existingUser) => {
+          if (existingUser) {
+            done(null, existingUser);
+          } else {
+            new User({
+              name: profile.displayName,
+              google: {
+                id: profile.id,
+                accessToken: accessToken,
+                refreshToken: refreshToken
+              }
+            }).save((err, user) => {
+              if (err)
+                return done({ message: "Error while saving user" }, null);
+              done(null, user);
+            });
+          }
         }
-      });
+      );
     }
   )
 );
@@ -65,30 +69,38 @@ passport.use(
       callbackURL: "/auth/facebook/callback"
     },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({
-        "facebook.id": profile.id
-      }, (err, existingUser) => {
-        if (existingUser) {
-          // is already registered
-          done(null, existingUser);
-        } else {
-          // create user and save it to db
-          new User({
-            name: profile.displayName,
-            facebook: {
-              id: profile.id,
-              accessToken: accessToken,
-              refreshToken: refreshToken
-            }
-          }).save( (err, newUser) => {
-            if (err) return done({message: "Error while saving user"}, null);
-            FB.updateFriends(newUser.id, (err, user) => {
-              if (err) return done({message: "Error while updating FB friends"}, null);
-              done(null, user);
+      User.findOne(
+        {
+          "facebook.id": profile.id
+        },
+        (err, existingUser) => {
+          if (existingUser) {
+            // is already registered
+            done(null, existingUser);
+          } else {
+            // create user and save it to db
+            new User({
+              name: profile.displayName,
+              facebook: {
+                id: profile.id,
+                accessToken: accessToken,
+                refreshToken: refreshToken
+              }
+            }).save((err, newUser) => {
+              if (err)
+                return done({ message: "Error while saving user" }, null);
+              FB.updateFriends(newUser.id, (err, user) => {
+                if (err)
+                  return done(
+                    { message: "Error while updating FB friends" },
+                    null
+                  );
+                done(null, user);
+              });
             });
-          });
+          }
         }
-      });
+      );
     }
   )
 );
@@ -97,53 +109,71 @@ passport.use(
  *  LOCAL STRATEGY
  */
 
-passport.use("local-signup",
-  new localStrategy({
+passport.use(
+  "local-signup",
+  new localStrategy(
+    {
       usernameField: "email",
       passwordField: "password",
       passReqToCallback: true
-  },
-  (req, email, password, done) => {
-    User.findOne({"local.email": req.body.email}, (err, user) => {
-      if (err) return done(err);
-      if (user)
-        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-
-      const newUser = new User({
-        name: req.body.name || req.body.email,
-        local: {
-          email: req.body.email,
-          password: req.body.password
-        }
-      });
-
-      newUser.save( (err, user) => {
+    },
+    (req, email, password, done) => {
+      User.findOne({ "local.email": req.body.email }, (err, user) => {
         if (err) return done(err);
-        return done(null, user);
-      })
-    })
-  })
+        if (user)
+          return done(
+            null,
+            false,
+            req.flash("signupMessage", "That email is already taken.")
+          );
+
+        const newUser = new User({
+          name: req.body.name || req.body.email,
+          local: {
+            email: req.body.email,
+            password: req.body.password
+          }
+        });
+
+        newUser.save((err, user) => {
+          if (err) return done(err);
+          return done(null, user);
+        });
+      });
+    }
+  )
 );
 
-passport.use("local-login",
-  new localStrategy({
-    username: "email",
-    passwordField: "password",
-    passReqToCallback: true
-  },
-  (req, email, password, done) => {
-    User.findOne({"local.email": req.body.email}, (err, user) => {
-      if (err) return done(err);
-      if (!user)
-        return done(null, false, req.flash("loginMessage", "User with given email was not found"));
+passport.use(
+  "local-login",
+  new localStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+      passReqToCallback: true
+    },
+    (req, email, password, done) => {
+      User.findOne({ "local.email": req.body.email }, (err, user) => {
+        if (err) return done(err);
+        if (!user)
+          return done(
+            null,
+            false,
+            req.flash("loginMessage", "User with given email was not found")
+          );
 
-      user.local.comparePassword(password, (err, isMatch) => {
-        if (isMatch) {
-          return done(null, user);
-        } else {
-          return done(null, false, req.flash("loginMessage", "Wrong password"));
-        }
+        user.local.comparePassword(password, (err, isMatch) => {
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(
+              null,
+              false,
+              req.flash("loginMessage", "Wrong password")
+            );
+          }
+        });
       });
-    })
-  })
+    }
+  )
 );

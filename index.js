@@ -55,11 +55,12 @@ require("./routes/apiRoutes")(app);
 require("./routes/movieListRoutes")(app);
 require("./routes/authRoutes")(app);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, err => {
+app.listen(keys.port, err => {
   if (err) {
     console.log("Error occured");
   } else {
-    console.log("Listening on port " + PORT);
+    console.log("Listening on port " + keys.port);
   }
 });
+
+module.exports = app;

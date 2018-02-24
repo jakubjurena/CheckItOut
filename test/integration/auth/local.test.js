@@ -3,7 +3,7 @@ process.env.NODE_ENV = "test";
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 
-const app = require("../index.js");
+const app = require("../../../index");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
@@ -38,36 +38,29 @@ describe("Local auth (integration tests)", function() {
     });
   });
 
-  after(function(done) {
-    User.remove({}, function(err) {
-      if (err) done(err);
-      done();
-    });
-  });
-
   describe("REGISTRATION", function() {
-    it("register new user with unique email", function(done) {
+    it.skip("register new user with unique email", function(done) {
       done();
     });
-    it("can't register new user with used email", function(done) {
+    it.skip("can't register new user with used email", function(done) {
       done();
     });
-    it("registration must contain email", function(done) {
+    it.skip("registration must contain email", function(done) {
       done();
     });
-    it("registration must contain password", function(done) {
+    it.skip("registration must contain password", function(done) {
       done();
     });
   });
 
   describe("LOGIN", function() {
-    it("login registred user", function(done) {
+    it.skip("login registred user", function(done) {
       done();
     });
   });
 
   describe("LOGOUT", function() {
-    it("logout logged user", function(done) {
+    it.skip("logout logged user", function(done) {
       done();
     });
   });

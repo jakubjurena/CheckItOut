@@ -27,7 +27,7 @@ module.exports = app => {
   app.get(
     "/auth/facebook",
     passport.authenticate("facebook", {
-      scope: ["user_friends", "public_profile", ]
+      scope: ["user_friends", "public_profile"]
     })
   );
 
@@ -40,6 +40,59 @@ module.exports = app => {
       res.redirect("/dashboard");
     }
   );
+
+  /**
+   *  LOCAL AUTH
+   */
+
+  app.post(
+    "/auth/local/signup",
+    passport.authenticate("local-signup", {
+      failureRedirect: "/auth/local/signup/flash",
+      failureFlash: true
+    }),
+    (req, res) => {
+      res.send(req.user);
+    }
+  );
+
+  app.get("/auth/local/signup/flash", (req, res) => {
+    const flash = req.flash("signupMessage");
+    if (flash !== []) {
+      return res.send({
+        errorMessage: flash[0]
+      });
+    } else {
+      return res.send({
+        errorMessage: "Server auth failed"
+      });
+    }
+  });
+
+  app.post(
+    "/auth/local/login",
+    passport.authenticate("local-login", {
+      failureRedirect: "/auth/local/login/flash",
+      failureFlash: true
+    }),
+    (req, res) => {
+      res.send(req.user);
+    }
+  );
+
+  app.get("/auth/local/login/flash", (req, res) => {
+    const flash = req.flash("loginMessage");
+    console.log(flash);
+    if (flash !== []) {
+      return res.send({
+        errorMessage: flash[0]
+      });
+    } else {
+      return res.send({
+        errorMessage: "Server auth failed"
+      });
+    }
+  });
 
   /**
    *  COMMON METHODS

@@ -5,9 +5,11 @@ const { Schema } = mongoose;
 // subdocuments import
 const googleSchema = require("./subdocuments/Google");
 const facebookSchema = require("./subdocuments/Facebook");
+const localSchema = require("./subdocuments/Local");
 
 const userSchema = new Schema({
   name: String,
+  local: localSchema,
   facebook: facebookSchema,
   google: googleSchema,
   registrationDate: { type: Date, default: Date.now()}

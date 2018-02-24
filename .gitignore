@@ -9,3 +9,4 @@ client/node_modules
 
 #keys secrets
 config/dev.js
+config/test.js

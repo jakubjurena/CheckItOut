@@ -5,13 +5,16 @@ const { Schema } = mongoose;
 
 const SALT_WORK_FACTOR = 10;
 
-const localSchema = new Schema({
-  email: { type: String, required: true},
-  password: { type: String, required: true},
-  connectDate: { type: Date, default: Date.now() }
-}, {
-  _id: false
-});
+const localSchema = new Schema(
+  {
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    connectDate: { type: Date, default: Date.now() }
+  },
+  {
+    _id: false
+  }
+);
 
 localSchema.pre("save", function(next) {
   const user = this;
@@ -23,8 +26,8 @@ localSchema.pre("save", function(next) {
       if (err) return next(err);
       user.password = hash;
       next();
-    })
-  })
+    });
+  });
 });
 
 /**
@@ -33,16 +36,15 @@ localSchema.pre("save", function(next) {
  * @param candidatePassword
  * @param cb
  */
-localSchema.methods.comparePassword = function (candidatePassword, cb) {
+localSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) return cb(err, false);
     cb(null, isMatch);
-  })
-  bcrypt.compare()
+  });
 };
 
 // method hiding some Schema fields while sending model of this schema to user
-localSchema.methods.toJSON = function () {
+localSchema.methods.toJSON = function() {
   const user = this;
   const userObject = user.toObject();
 

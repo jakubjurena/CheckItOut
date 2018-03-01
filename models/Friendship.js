@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const {friendRequestStatusEnum} = require("../config/enums");
+const friendRequestStatus = require("../enums/friendRequestStatus");
 
 /*
   requester is always last user who changed status
@@ -13,10 +13,11 @@ const {friendRequestStatusEnum} = require("../config/enums");
 
   if user1 blocked someone, blocked user can not request friendship with this user again until user1 do not remove this block
  */
+
 const friendshipSchema = new Schema( {
   requester: { type: Schema.Types.ObjectId, ref: "User", required: true},
   recipient: { type: Schema.Types.ObjectId, ref: "User", required: true},
-  status: { type: String, enum: friendRequestStatusEnum, default: "pending"},
+  status: { type: String, enum: friendRequestStatus.LIST, default: friendRequestStatus.PENDING},
   statusChangeDate: { type: Date, default: Date.now()},
   friendsFrom: Date
 });

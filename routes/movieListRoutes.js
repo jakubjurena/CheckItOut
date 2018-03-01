@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const visibility = require("../config/visibility");
+const visibility = require("../enums/visibility");
 
 const MovieList = mongoose.model("MovieList");
 

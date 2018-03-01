@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const axios = require("axios");
 
-
 const Users = mongoose.model("User");
-const {facebookApiURL, facebookMyFriendsPath} = require("../config/constants");
+const {
+  facebookApiURL,
+  facebookMyFriendsPath
+} = require("../config/constants");
 
 module.exports = {
-
   /*
    *
    *  get this url to get friends
@@ -30,18 +31,19 @@ module.exports = {
    * @param userId id of user who want to refresh fb friends
    * @return updatedUser when success, null otherwise
    */
-  updateFriendsSync: async (userId) => {
+  updateFriendsSync: async userId => {
     //console.log("USER ID: ", userId);
     if (userId === null) {
       return null;
     }
-    const user = await Users.findById({_id: userId});
+    const user = await Users.findById({ _id: userId });
     //console.log("USER: ", user);
     if (user === null) {
       return null;
     }
 
-    const path = facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
+    const path =
+      facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
     //console.log("PATH: ", path);
     const res = await axios.get(path);
     //console.log("RESPONSE BODY: ", res.data);
@@ -63,32 +65,35 @@ module.exports = {
   updateFriends: (userId, callback) => {
     //console.log("USER ID: ", userId);
     if (userId === null) {
-      callback("User id couldn't be null", null)
+      callback({ message: "User id couldn't be null" }, null);
     }
     Users.findById(userId).then(user => {
       //console.log("USER: ", user);
       if (user === null) {
-        callback({ message: "User not found"}, null)
+        callback({ message: "User not found" }, null);
       }
 
-      const path = facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
+      const path =
+        facebookApiURL + facebookMyFriendsPath + user.facebook.accessToken;
       //console.log("PATH: ", path);
-      axios.get(path).then(res => {
+      axios
+        .get(path)
+        .then(res => {
           //console.log("RESPONSE BODY: ", res.data);
 
           user.facebook.friends = res.data.data;
           user.facebook.friendsRefreshDate = Date.now();
 
-          user.save( (err, updatedUser) => {
+          user.save((err, updatedUser) => {
             if (err) {
-              callback({message: "Error while updating in DB"}, null);
+              callback({ message: "Error while updating in DB" }, null);
             }
             callback(null, updatedUser);
-          })
-        }).catch( (err) => {
-        callback({message: "Axios error (on GET " + path + ")" }, null);
-      });
-      })
-    }
-
+          });
+        })
+        .catch(err => {
+          callback({ message: "Axios error (on GET " + path + ")" }, null);
+        });
+    });
+  }
 };

@@ -163,6 +163,7 @@ passport.use(
           );
 
         user.local.comparePassword(password, (err, isMatch) => {
+          if (err) return done(err);
           if (isMatch) {
             return done(null, user);
           } else {

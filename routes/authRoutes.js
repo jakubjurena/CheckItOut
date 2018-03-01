@@ -58,13 +58,14 @@ module.exports = app => {
 
   app.get("/auth/local/signup/flash", (req, res) => {
     const flash = req.flash("signupMessage");
-    if (flash !== []) {
+    res.status(403);
+    if (flash.length === 0) {
       return res.send({
-        errorMessage: flash[0]
+        errorMessage: "Server auth failed"
       });
     } else {
       return res.send({
-        errorMessage: "Server auth failed"
+        errorMessage: flash[0]
       });
     }
   });
@@ -82,14 +83,14 @@ module.exports = app => {
 
   app.get("/auth/local/login/flash", (req, res) => {
     const flash = req.flash("loginMessage");
-    console.log(flash);
-    if (flash !== []) {
+    res.status(403);
+    if (flash.length === 0) {
       return res.send({
-        errorMessage: flash[0]
+        errorMessage: "Server auth failed"
       });
     } else {
       return res.send({
-        errorMessage: "Server auth failed"
+        errorMessage: flash[0]
       });
     }
   });

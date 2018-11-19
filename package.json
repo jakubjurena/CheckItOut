@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefix client2",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "mocha --timeout 5000 --recursive"
   },
